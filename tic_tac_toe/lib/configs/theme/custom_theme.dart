@@ -17,9 +17,6 @@ class CustomTheme {
         backgroundColor: Colors.black,
         centerTitle: true,
       ),
-      outlinedButtonTheme: const OutlinedButtonThemeData(
-        style: ButtonStyle()
-      ),
     );
   }
 }

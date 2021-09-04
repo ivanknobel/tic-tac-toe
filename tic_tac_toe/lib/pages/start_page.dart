@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tic_tac_toe/widgets/main_button.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -13,10 +14,7 @@ class StartPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           const Text("Jogar"),
-          OutlinedButton(
-            onPressed: () {},
-            child: const Text("a"),
-          ),
+          MainButton(text: "2 Jogadores", action: (){},)
         ],
       ),
     );

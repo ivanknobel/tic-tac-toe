@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tic_tac_toe/ui/pages/start_page.dart';
+import 'package:tic_tac_toe/pages/start_page.dart';
 
-import 'theme/custom_theme.dart';
+import 'configs/theme/custom_theme.dart';
 
 void main() {
   runApp(const MyApp());
