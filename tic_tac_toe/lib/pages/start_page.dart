@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tic_tac_toe/pages/normal_game_page.dart';
 import 'package:tic_tac_toe/widgets/main_button.dart';
 
 class StartPage extends StatelessWidget {
@@ -6,18 +7,29 @@ class StartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tic-Tac-Toe"),
+        title: const Text("Tic Tac Toe"),
       ),
       body: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text("Jogar"),
+            Text(
+              "Jogar",
+              style: textTheme.headline5!.copyWith(color: Colors.white),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
             MainButton(
               text: "2 Jogadores",
-              action: () {},
+              action: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => NormalGamePage()));
+              },
             )
           ],
         ),

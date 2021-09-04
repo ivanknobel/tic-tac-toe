@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tic_tac_toe/configs/theme/colors.dart';
+import 'package:tic_tac_toe/theme/colors.dart';
 
 class MainButton extends StatelessWidget {
   final String text;
