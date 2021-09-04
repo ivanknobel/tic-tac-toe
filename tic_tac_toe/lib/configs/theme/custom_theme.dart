@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'colors.dart';
 
@@ -7,12 +8,7 @@ class CustomTheme {
     return ThemeData(
       primaryColor: CustomColors.gold,
       scaffoldBackgroundColor: Colors.black,
-      fontFamily: 'Montserrat',
-      buttonTheme: ButtonThemeData(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-        buttonColor: CustomColors.gold,
-      ),
+      textTheme: GoogleFonts.robotoTextTheme(),
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.black,
         centerTitle: true,

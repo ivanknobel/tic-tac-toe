@@ -10,12 +10,17 @@ class StartPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Tic-Tac-Toe"),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          const Text("Jogar"),
-          MainButton(text: "2 Jogadores", action: (){},)
-        ],
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const Text("Jogar"),
+            MainButton(
+              text: "2 Jogadores",
+              action: () {},
+            )
+          ],
+        ),
       ),
     );
   }
