@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/game/game.dart';
-
+import 'core/core.dart';
 import 'theme/custom_theme.dart';
 
 void main() {
+  setupDependencies();
   runApp(const MyApp());
 }
 
