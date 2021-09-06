@@ -17,12 +17,14 @@ class MainButton extends StatelessWidget {
         style: const TextStyle(fontSize: 16),
       ),
       style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.resolveWith((states){
-          if (states.contains(MaterialState.pressed)) {
+        foregroundColor: MaterialStateProperty.resolveWith(
+          (states) {
+            if (states.contains(MaterialState.pressed)) {
               return Colors.black;
             }
             return Colors.white;
-        },),
+          },
+        ),
         backgroundColor: MaterialStateProperty.resolveWith(
           (states) {
             if (states.contains(MaterialState.pressed)) {
