@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:tic_tac_toe/game/game.dart';
-
 enum Player {
   x,
   o,
@@ -10,13 +8,6 @@ enum Player {
 Player getRandomStarter() {
   bool xPlays = Random().nextBool();
   return xPlays ? Player.x : Player.o;
-}
-
-Player nextPlayer(Player lastPlayed) {
-  if (lastPlayed == Player.x) {
-    return Player.o;
-  }
-  return Player.x;
 }
 
 enum SquareOption {
@@ -35,7 +26,7 @@ SquareOption squareOptionFromPlayer(Player player) {
 enum GameStatus {
   start,
   ongoing,
-  draw,
+  drawn,
   xWon,
   oWon,
 }
