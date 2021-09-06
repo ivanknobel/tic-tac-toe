@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tic_tac_toe/pages/normal_game_page.dart';
-import 'package:tic_tac_toe/widgets/main_button.dart';
+import 'package:tic_tac_toe/game/game.dart';
+import 'package:tic_tac_toe/widgets/widgets.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tic_tac_toe/pages/start_page.dart';
+import 'package:tic_tac_toe/game/game.dart';
 
 import 'theme/custom_theme.dart';
 
