@@ -15,7 +15,7 @@ class GameBloc extends Cubit<GameState> {
     required int column,
   }) {
     if (state.board[row][column] == SquareOption.empty) {
-      state.board[row][column] == squareOptionFromPlayer(player);
+      state.board[row][column] = squareOptionFromPlayer(player);
       
       final Player next = _useCase.nextPlayer(lastPlayed: player);
       final GameStatus status = _useCase.getGameStatus(state.game.board);
@@ -24,7 +24,7 @@ class GameBloc extends Cubit<GameState> {
 
       switch (status) {
         case GameStatus.start:
-          newState = GameStateStart(game, whoPlays: next);
+          newState = GameStateOngoing(game, whoPlays: next);
           break;
         case GameStatus.ongoing:
           newState = GameStateOngoing(game, whoPlays: next);
