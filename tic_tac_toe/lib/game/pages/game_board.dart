@@ -11,9 +11,11 @@ class GameBoard extends StatefulWidget {
 }
 
 class _GameBoardState extends State<GameBoard> {
+  late GameBloc _bloc;
+
   @override
   Widget build(BuildContext context) {
-    GameBloc _bloc = BlocProvider.of<GameBloc>(context);
+    _bloc = BlocProvider.of<GameBloc>(context);
 
     return BlocConsumer(
       bloc: _bloc,
@@ -37,25 +39,14 @@ class _GameBoardState extends State<GameBoard> {
 
                 return _gameSquare(
                   data: state.game.board[x][y],
-                  onPressed: (state is GameStateStart)
-                      ? () {
-                          _bloc.play(
-                            player: state.whoPlays,
-                            row: x,
-                            column: y,
-                          );
-                          setState(() {});
-                        }
+                  whoPlays: (state is GameStateStart)
+                      ? state.whoPlays
                       : (state is GameStateOngoing)
-                          ? () {
-                              _bloc.play(
-                                player: state.whoPlays,
-                                row: x,
-                                column: y,
-                              );
-                              setState(() {});
-                            }
+                          ? state.whoPlays
                           : null,
+                  x: x,
+                  y: y,
+                  gameSize: size,
                 );
               },
             )
@@ -66,27 +57,51 @@ class _GameBoardState extends State<GameBoard> {
     );
   }
 
-  Widget _gameSquare({required SquareOption data, VoidCallback? onPressed}) {
-    String item = "nada";
-    if (data == SquareOption.x) {
-      item = "X";
-    } else if (data == SquareOption.o) {
-      item = "O";
-    }
-
+  Widget _gameSquare({
+    required SquareOption data,
+    Player? whoPlays,
+    required int x,
+    required int y,
+    required int gameSize,
+  }) {
     return GestureDetector(
-      onTap: (data == SquareOption.empty) ? onPressed : null,
+      onTap: (data == SquareOption.empty && whoPlays != null)
+          ? () {
+              _bloc.play(player: whoPlays, row: x, column: y);
+            }
+          : null,
       child: GridTile(
         child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: CustomColors.gold,
-              width: 0.5,
-            ),
-          ),
-          child: Center(child: Text(item, style: TextStyle(color: Colors.white),)),
+          decoration: BoxDecoration(border: _getSquareBorder(x, y, gameSize)),
+          child: Center(child: _getIcon(data)),
         ),
       ),
+    );
+  }
+
+  Icon _getIcon(SquareOption data) {
+    return Icon(
+      (data == SquareOption.x)
+          ? Icons.close
+          : (data == SquareOption.o)
+              ? Icons.circle_outlined
+              : null,
+    );
+  }
+
+  Border _getSquareBorder(int x, int y, int max) {
+    return Border(
+      top: (x != 0) ? _squareBorderSide() : const BorderSide(width: 0),
+      left: (y != 0) ? _squareBorderSide() : const BorderSide(width: 0),
+      bottom: (x != max - 1) ? _squareBorderSide() : const BorderSide(width: 0),
+      right: (y != max - 1) ? _squareBorderSide() : const BorderSide(width: 0),
+    );
+  }
+
+  BorderSide _squareBorderSide() {
+    return const BorderSide(
+      color: CustomColors.gold,
+      width: 1,
     );
   }
 }
