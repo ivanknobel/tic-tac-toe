@@ -10,14 +10,15 @@ class GameUseCase {
 
     for (int i = 0; i < size; i++) {
       mainDiagonal[i] = board[i][i];
-      otherDiagonal[i] = board[size - i - 1][size - i - 1];
+      otherDiagonal[i] = board[i][size - i - 1];
     }
 
     GameStatus mainDiagonalStatus = _listStatus(mainDiagonal);
     GameStatus otherDiagonalStatus = _listStatus(otherDiagonal);
     if (mainDiagonalStatus != GameStatus.ongoing) {
       return mainDiagonalStatus;
-    } else if (otherDiagonalStatus != GameStatus.ongoing) {
+    }
+    if (otherDiagonalStatus != GameStatus.ongoing) {
       return otherDiagonalStatus;
     }
 
@@ -37,7 +38,7 @@ class GameUseCase {
     for (int i = 0; i < size; i++) {
       List<SquareOption> column = List.filled(size, SquareOption.empty);
       for (int j = 0; j < size; j++) {
-        column[j] = board[i][j];
+        column[j] = board[j][i];
       }
       GameStatus columnStatus = _listStatus(column);
       if (columnStatus != GameStatus.ongoing) {
