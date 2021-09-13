@@ -1,7 +1,7 @@
 part of 'game_bloc.dart';
 
 abstract class GameState {
-  final GameModel game;
+  GameModel game;
 
   GameState(this.game);
 

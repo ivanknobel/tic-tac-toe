@@ -14,7 +14,7 @@ class MainButton extends StatelessWidget {
       onPressed: action,
       child: Text(
         text,
-        style: const TextStyle(fontSize: 16),
+        style: const TextStyle(fontSize: 18),
       ),
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.resolveWith(
@@ -35,7 +35,7 @@ class MainButton extends StatelessWidget {
         ),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(12),
             side: const BorderSide(
               color: CustomColors.gold,
             ),

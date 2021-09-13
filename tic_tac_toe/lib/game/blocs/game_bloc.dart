@@ -16,7 +16,7 @@ class GameBloc extends Cubit<GameState> {
   }) {
     if (state.board[row][column] == SquareOption.empty) {
       state.board[row][column] = squareOptionFromPlayer(player);
-      
+
       final Player next = _useCase.nextPlayer(lastPlayed: player);
       final GameStatus status = _useCase.getGameStatus(state.game.board);
       final GameModel game = state.game;
@@ -37,5 +37,11 @@ class GameBloc extends Cubit<GameState> {
       }
       emit(newState);
     }
+  }
+
+  void restartGame() {
+    GameState newState =
+        GameStateStart(GameModel(), whoPlays: getRandomStarter());
+    emit(newState);
   }
 }

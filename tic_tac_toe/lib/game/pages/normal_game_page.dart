@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tic_tac_toe/widgets/main_button.dart';
 
 import '../game.dart';
 
@@ -11,7 +12,7 @@ class NormalGamePage extends StatefulWidget {
 }
 
 class _NormalGamePageState extends State<NormalGamePage> {
-  final _bloc = GameBloc();
+  late GameBloc _bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,8 @@ class _NormalGamePageState extends State<NormalGamePage> {
           create: (context) => GameBloc(),
           child: BlocConsumer<GameBloc, GameState>(
             builder: (context, GameState state) {
+              _bloc = BlocProvider.of<GameBloc>(context);
+
               return Column(
                 children: [
                   const SizedBox(
@@ -31,14 +34,25 @@ class _NormalGamePageState extends State<NormalGamePage> {
                   Text(
                     _getMessage(state),
                     style: const TextStyle(color: Colors.white, fontSize: 18),
-                  ), 
+                  ),
                   const SizedBox(
                     height: 32,
                   ),
-                  const  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(16),
                     child: GameBoard(),
                   ),
+                  if (state is GameStateFinished) ...[
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    MainButton(
+                      text: "Reiniciar",
+                      action: () {
+                        _bloc.restartGame();
+                      },
+                    )
+                  ]
                 ],
               );
             },
