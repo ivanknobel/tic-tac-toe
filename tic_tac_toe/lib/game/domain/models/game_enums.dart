@@ -6,11 +6,11 @@ enum Player {
 }
 
 String getPlayerName(Player player) {
-    if (player == Player.x) {
-      return "X";
-    }
-    return "O";
+  if (player == Player.x) {
+    return "X";
   }
+  return "O";
+}
 
 Player getRandomStarter() {
   bool xPlays = Random().nextBool();
@@ -36,4 +36,14 @@ enum GameStatus {
   drawn,
   xWon,
   oWon,
+}
+
+Player? getWinnerFromResult(GameStatus result) {
+  if (result == GameStatus.xWon) {
+    return Player.x;
+  }
+  if (result == GameStatus.oWon) {
+    return Player.o;
+  }
+  return null;
 }

@@ -31,10 +31,7 @@ class _NormalGamePageState extends State<NormalGamePage> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Text(
-                    _getMessage(state),
-                    style: const TextStyle(color: Colors.white, fontSize: 18),
-                  ),
+                  _topMessage(state),
                   const SizedBox(
                     height: 32,
                   ),
@@ -61,26 +58,63 @@ class _NormalGamePageState extends State<NormalGamePage> {
         ));
   }
 
-  String _getMessage(GameState state) {
-    if (state is GameStateStart) {
-      String player = getPlayerName(state.whoPlays);
-      return "O Jogador $player começa";
-    } else if (state is GameStateOngoing) {
-      String player = getPlayerName(state.whoPlays);
-      return "Vez do jogador $player";
-    } else if (state is GameStateFinished) {
-      GameStatus result = state.result;
-      if (result == GameStatus.drawn) {
-        return "Empate!";
-      } else {
-        return _getWinningMessage(state.result);
+  Widget _topMessage(GameState state) {
+    if (state is GameStateFinished) {
+      if (state.result == GameStatus.drawn) {
+        return const Text(
+          "Empate!",
+          style: TextStyle(color: Colors.white, fontSize: 18),
+        );
       }
-    } else {
-      return "Erro";
     }
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: (state is GameStateStart || state is GameStateFinished)
+                ? "Jogador "
+                : (state is GameStateOngoing)
+                    ? "Vez do jogador "
+                    : null,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+          WidgetSpan(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2),
+              child: _getPlayerIcon((state is GameStateStart) ? state.whoPlays : (state is GameStateOngoing) ? state.whoPlays : (state is GameStateFinished) ? getWinnerFromResult(state.result) : null),
+            ),
+          ),
+          TextSpan(
+            text: (state is GameStateStart)
+                ? " começa"
+                : (state is GameStateFinished)
+                    ? " ganhou!"
+                    : null,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
-  String _getWinningMessage(GameStatus status) {
+  Icon _getPlayerIcon(Player? player) {
+    return Icon(
+      (player == Player.x)
+          ? Icons.close
+          : (player == Player.o)
+              ? Icons.circle_outlined
+              : null,
+              size: 18,
+    );
+  }
+
+  String _getWinningPlayer(GameStatus status) {
     String player = "";
     if (status == GameStatus.oWon) {
       player = getPlayerName(Player.o);
