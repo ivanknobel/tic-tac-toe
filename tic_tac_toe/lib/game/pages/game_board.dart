@@ -26,6 +26,8 @@ class _GameBoardState extends State<GameBoard> {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: size,
               ),
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
               itemCount: size * size,
               itemBuilder: (context, index) {
                 int length = size;
@@ -72,7 +74,7 @@ class _GameBoardState extends State<GameBoard> {
       item = "O";
     }
 
-    return InkWell(
+    return GestureDetector(
       onTap: (data == SquareOption.empty) ? onPressed : null,
       child: GridTile(
         child: Container(

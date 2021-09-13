@@ -25,9 +25,11 @@ class GameUseCase {
       GameStatus rowStatus = _listStatus(row);
       if (rowStatus != GameStatus.ongoing) {
         return rowStatus;
-      } else if (!_isListEmpty(row)) {
+      }
+      if (!_isListEmpty(row)) {
         isStart = false;
-      } else if (!_isListFull(row)) {
+      }
+      if (!_isListFull(row)) {
         isDraw = false;
       }
     }
@@ -40,9 +42,11 @@ class GameUseCase {
       GameStatus columnStatus = _listStatus(column);
       if (columnStatus != GameStatus.ongoing) {
         return columnStatus;
-      } else if (!_isListEmpty(column)) {
+      }
+      if (!_isListEmpty(column)) {
         isStart = false;
-      } else if (!_isListFull(column)) {
+      }
+      if (!_isListFull(column)) {
         isDraw = false;
       }
     }
@@ -74,17 +78,16 @@ class GameUseCase {
   }
 
   bool _isListEmpty(List<SquareOption> list) {
-    if (list.every((element) => element == SquareOption.empty)) {
-      return true;
+    if (list.contains(SquareOption.x) || list.contains(SquareOption.o)) {
+      return false;
     }
-    return false;
+    return true;
   }
 
   bool _isListFull(List<SquareOption> list) {
-    if (list.every(
-        (element) => element == SquareOption.x || element == SquareOption.o)) {
-      return true;
+    if (list.contains(SquareOption.empty)) {
+      return false;
     }
-    return false;
+    return true;
   }
 }
