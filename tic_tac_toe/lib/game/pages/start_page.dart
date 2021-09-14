@@ -28,7 +28,7 @@ class StartPage extends StatelessWidget {
               text: "2 Jogadores",
               action: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => NormalGamePage()));
+                    MaterialPageRoute(builder: (context) => const NormalGamePage()));
               },
             )
           ],

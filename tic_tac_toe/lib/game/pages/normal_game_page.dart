@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tic_tac_toe/widgets/main_button.dart';
+import 'package:tic_tac_toe/widgets/widgets.dart';
 
 import '../game.dart';
 
 class NormalGamePage extends StatefulWidget {
-  NormalGamePage({Key? key}) : super(key: key);
+  const NormalGamePage({Key? key}) : super(key: key);
 
   @override
   _NormalGamePageState createState() => _NormalGamePageState();
@@ -112,15 +112,5 @@ class _NormalGamePageState extends State<NormalGamePage> {
               : null,
               size: 18,
     );
-  }
-
-  String _getWinningPlayer(GameStatus status) {
-    String player = "";
-    if (status == GameStatus.oWon) {
-      player = getPlayerName(Player.o);
-    } else if (status == GameStatus.xWon) {
-      player = getPlayerName(Player.x);
-    }
-    return "O jogador $player ganhou!";
   }
 }
