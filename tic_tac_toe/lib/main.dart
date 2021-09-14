@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tic_tac_toe/constants/constants.dart';
 import 'package:tic_tac_toe/game/game.dart';
 import 'core/core.dart';
 import 'theme/custom_theme.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tic Tac Toe',
+      title: Strings.appName,
       theme: CustomTheme.darkTheme,
       home: const StartPage(),
     );

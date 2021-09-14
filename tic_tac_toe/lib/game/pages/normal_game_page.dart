@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tic_tac_toe/constants/constants.dart';
 import 'package:tic_tac_toe/widgets/widgets.dart';
 
 import '../game.dart';
@@ -18,7 +19,7 @@ class _NormalGamePageState extends State<NormalGamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Tic Tac Toe"),
+          title: const Text(Strings.appName),
         ),
         body: BlocProvider(
           create: (context) => GameBloc(),
@@ -44,7 +45,7 @@ class _NormalGamePageState extends State<NormalGamePage> {
                       height: 32,
                     ),
                     MainButton(
-                      text: "Reiniciar",
+                      text: Strings.buttonRestart,
                       action: () {
                         _bloc.restartGame();
                       },
@@ -62,7 +63,7 @@ class _NormalGamePageState extends State<NormalGamePage> {
     if (state is GameStateFinished) {
       if (state.result == GameStatus.drawn) {
         return const Text(
-          "Empate!",
+          Strings.gameMessageDraw,
           style: TextStyle(color: Colors.white, fontSize: 18),
         );
       }
@@ -72,10 +73,12 @@ class _NormalGamePageState extends State<NormalGamePage> {
         children: [
           TextSpan(
             text: (state is GameStateStart || state is GameStateFinished)
-                ? "Jogador "
+                ? Strings.gameMessageStart1
                 : (state is GameStateOngoing)
-                    ? "Vez do jogador "
-                    : null,
+                    ? Strings.gameMessageOngiong1
+                    : (state is GameStateFinished)
+                        ? Strings.gameMessageStart1
+                        : null,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -83,15 +86,21 @@ class _NormalGamePageState extends State<NormalGamePage> {
           ),
           WidgetSpan(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 2),
-              child: _getPlayerIcon((state is GameStateStart) ? state.whoPlays : (state is GameStateOngoing) ? state.whoPlays : (state is GameStateFinished) ? getWinnerFromResult(state.result) : null),
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: _getPlayerIcon((state is GameStateStart)
+                  ? state.whoPlays
+                  : (state is GameStateOngoing)
+                      ? state.whoPlays
+                      : (state is GameStateFinished)
+                          ? getWinnerFromResult(state.result)
+                          : null),
             ),
           ),
           TextSpan(
             text: (state is GameStateStart)
-                ? " começa"
+                ? Strings.gameMessageStart2
                 : (state is GameStateFinished)
-                    ? " ganhou!"
+                    ? Strings.gameMessageFinished2
                     : null,
             style: const TextStyle(
               color: Colors.white,
@@ -110,7 +119,7 @@ class _NormalGamePageState extends State<NormalGamePage> {
           : (player == Player.o)
               ? Icons.circle_outlined
               : null,
-              size: 18,
+      size: 18,
     );
   }
 }
