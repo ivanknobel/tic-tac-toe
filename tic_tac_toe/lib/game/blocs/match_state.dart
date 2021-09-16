@@ -6,6 +6,8 @@ abstract class MatchState {
   MatchState(this.match);
 
   GameModel get currentGame => match.games.last;
+  double get xPoints => match.points[Player.x] ?? 0;
+  double get oPoints => match.points[Player.o] ?? 0;
 }
 
 class MatchStateOngoing extends MatchState {

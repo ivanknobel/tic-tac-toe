@@ -46,17 +46,34 @@ class _NormalGamePageState extends State<NormalGamePage> {
                         padding: EdgeInsets.all(16),
                         child: GameBoard(),
                       ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 64),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _playerScore(Player.x, _matchBloc.state.xPoints),
+                            Expanded(
+                              child: Container(),
+                            ),
+                            _playerScore(Player.o, _matchBloc.state.oPoints),
+                          ],
+                        ),
+                      ),
                       if (gameState is GameStateFinished) ...[
                         const SizedBox(
-                          height: 32,
+                          height: 16,
                         ),
                         MainButton(
-                          text: "Reiniciar",
+                          text: "Novo jogo",
                           action: () {
                             _matchBloc.newGame();
                           },
                         )
-                      ]
+                      ],
                     ],
                   );
                 },
@@ -135,14 +152,26 @@ class _NormalGamePageState extends State<NormalGamePage> {
     );
   }
 
-  Icon _getPlayerIcon(Player? player) {
+  Widget _playerScore(Player player, double score) {
+    return Column(
+      children: [
+        _getPlayerIcon(player, size: 24),
+        Text(
+          (score.truncateToDouble() == score) ? score.toStringAsFixed(0) : score.toString(),
+          style: const TextStyle(color: Colors.white, fontSize: 18),
+        )
+      ],
+    );
+  }
+
+  Icon _getPlayerIcon(Player? player, {double size = 18}) {
     return Icon(
       (player == Player.x)
           ? Icons.close
           : (player == Player.o)
               ? Icons.circle_outlined
               : null,
-      size: 18,
+      size: size,
     );
   }
 }

@@ -11,9 +11,10 @@ class MatchBloc extends Cubit<MatchState> {
     if (whoWon != null) {
       newState.match.points[whoWon] = (newState.match.points[whoWon] ?? 0) + 1;
     } else {
-      newState.match.points.forEach((key, value) {
-        value += 0.5;
-      });
+      newState.match.points[Player.x] =
+          (newState.match.points[Player.x] ?? 0) + 0.5;
+      newState.match.points[Player.o] =
+          (newState.match.points[Player.o] ?? 0) + 0.5;
     }
     emit(newState);
   }
