@@ -5,7 +5,9 @@ import 'package:tic_tac_toe/game/game.dart';
 part 'game_state.dart';
 
 class GameBloc extends Cubit<GameState> {
-  GameBloc() : super(GameStateStart(GameModel(), whoPlays: getRandomStarter()));
+  final GameModel game;
+
+  GameBloc(this.game) : super(GameStateStart(game, whoPlays: getRandomStarter()));
 
   final GameUseCase _useCase = locator.get<GameUseCase>();
 
@@ -39,9 +41,9 @@ class GameBloc extends Cubit<GameState> {
     }
   }
 
-  void restartGame() {
+  void newGame(GameModel game) {
     GameState newState =
-        GameStateStart(GameModel(), whoPlays: getRandomStarter());
+        GameStateStart(game, whoPlays: getRandomStarter());
     emit(newState);
   }
 }

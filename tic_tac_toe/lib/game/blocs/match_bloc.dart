@@ -7,18 +7,20 @@ class MatchBloc extends Cubit<MatchState> {
   MatchBloc() : super(MatchStateOngoing(MatchModel()));
 
   void gameFinished(Player? whoWon) {
+    MatchState newState = MatchStateGameFinished(state.match);
     if (whoWon != null) {
-      state.match.points[whoWon] = (state.match.points[whoWon] ?? 0) + 1;
+      newState.match.points[whoWon] = (newState.match.points[whoWon] ?? 0) + 1;
     } else {
-      state.match.points.forEach((key, value) {
+      newState.match.points.forEach((key, value) {
         value += 0.5;
       });
     }
-    emit(state);
+    emit(newState);
   }
 
   void newGame() {
-    state.match.games.add(GameModel(size: state.match.boardSize));
-    emit(state);
+    MatchStateNewGame newState = MatchStateNewGame(state.match);
+    newState.match.games.add(GameModel(size: state.match.boardSize));
+    emit(newState);
   }
 }

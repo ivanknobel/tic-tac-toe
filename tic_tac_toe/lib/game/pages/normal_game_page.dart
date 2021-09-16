@@ -12,50 +12,76 @@ class NormalGamePage extends StatefulWidget {
 }
 
 class _NormalGamePageState extends State<NormalGamePage> {
-  late GameBloc _bloc;
+  late MatchBloc _matchBloc;
+  late GameBloc _gameBloc;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Tic Tac Toe"),
-        ),
-        body: BlocProvider(
-          create: (context) => GameBloc(),
-          child: BlocConsumer<GameBloc, GameState>(
-            builder: (context, GameState state) {
-              _bloc = BlocProvider.of<GameBloc>(context);
+      appBar: AppBar(
+        title: const Text("Tic Tac Toe"),
+      ),
+      body: BlocProvider(
+        create: (context) => MatchBloc(),
+        child: BlocConsumer<MatchBloc, MatchState>(
+          builder: (context, MatchState matchState) {
+            _matchBloc = BlocProvider.of<MatchBloc>(context);
 
-              return Column(
-                children: [
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  _topMessage(state),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: GameBoard(),
-                  ),
-                  if (state is GameStateFinished) ...[
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    MainButton(
-                      text: "Reiniciar",
-                      action: () {
-                        _bloc.restartGame();
-                      },
-                    )
-                  ]
-                ],
-              );
-            },
-            listener: (context, GameState state) {},
-          ),
-        ));
+            return BlocProvider(
+              create: (context) => GameBloc(matchState.currentGame),
+              child: BlocConsumer<GameBloc, GameState>(
+                builder: (context, GameState gameState) {
+                  _gameBloc = BlocProvider.of<GameBloc>(context);
+
+                  return Column(
+                    children: [
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      _topMessage(gameState),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(16),
+                        child: GameBoard(),
+                      ),
+                      if (gameState is GameStateFinished) ...[
+                        const SizedBox(
+                          height: 32,
+                        ),
+                        MainButton(
+                          text: "Reiniciar",
+                          action: () {
+                            _matchBloc.newGame();
+                          },
+                        )
+                      ]
+                    ],
+                  );
+                },
+                listener: (context, GameState gameState) {
+                  if (gameState is GameStateFinished) {
+                    _matchBloc.gameFinished(
+                      (gameState.result == GameStatus.xWon)
+                          ? Player.x
+                          : (gameState.result == GameStatus.oWon)
+                              ? Player.o
+                              : null,
+                    );
+                  }
+                },
+              ),
+            );
+          },
+          listener: (context, MatchState state) {
+            if (state is MatchStateNewGame) {
+              _gameBloc.newGame(state.currentGame);
+            }
+          },
+        ),
+      ),
+    );
   }
 
   Widget _topMessage(GameState state) {
@@ -84,7 +110,13 @@ class _NormalGamePageState extends State<NormalGamePage> {
           WidgetSpan(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 2),
-              child: _getPlayerIcon((state is GameStateStart) ? state.whoPlays : (state is GameStateOngoing) ? state.whoPlays : (state is GameStateFinished) ? getWinnerFromResult(state.result) : null),
+              child: _getPlayerIcon((state is GameStateStart)
+                  ? state.whoPlays
+                  : (state is GameStateOngoing)
+                      ? state.whoPlays
+                      : (state is GameStateFinished)
+                          ? getWinnerFromResult(state.result)
+                          : null),
             ),
           ),
           TextSpan(
@@ -110,7 +142,7 @@ class _NormalGamePageState extends State<NormalGamePage> {
           : (player == Player.o)
               ? Icons.circle_outlined
               : null,
-              size: 18,
+      size: 18,
     );
   }
 }
