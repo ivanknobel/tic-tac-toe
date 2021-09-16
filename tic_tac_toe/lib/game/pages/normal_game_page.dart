@@ -69,7 +69,7 @@ class _NormalGamePageState extends State<NormalGamePage> {
                           height: 16,
                         ),
                         MainButton(
-                          text: Strings.buttonRestart,
+                          text: Strings.buttonNewGame,
                           action: () {
                             _matchBloc.newGame();
                           },

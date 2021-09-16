@@ -7,7 +7,7 @@ class Strings {
   static const buttonTwoPlayers = "2 Jogadores";
 
   //Game page
-  static const buttonRestart = "Reiniciar";
+  static const buttonNewGame = "Novo jogo";
   static const gameMessageStart1 = "Jogador";
   static const gameMessageStart2 = "começa";
   static const gameMessageOngiong1 = "Vez do jogador";
