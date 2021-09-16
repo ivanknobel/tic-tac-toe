@@ -5,6 +5,7 @@ class GameModel {
   late var board = List.generate(
       size, (i) => List.generate(size, (i) => SquareOption.empty),
       growable: false);
+  Player? winner;
 
   GameModel({this.size = 3});
 
