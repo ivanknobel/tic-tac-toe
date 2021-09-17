@@ -15,9 +15,12 @@ class NormalGamePage extends StatefulWidget {
 class _NormalGamePageState extends State<NormalGamePage> {
   late MatchBloc _matchBloc;
   late GameBloc _gameBloc;
+  late TextTheme textTheme;
 
   @override
   Widget build(BuildContext context) {
+    textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.appName),
@@ -105,9 +108,9 @@ class _NormalGamePageState extends State<NormalGamePage> {
   Widget _topMessage(GameState state) {
     if (state is GameStateFinished) {
       if (state.result == GameStatus.drawn) {
-        return const Text(
+        return Text(
           Strings.gameMessageDraw,
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: textTheme.bodyText1,
         );
       }
     }
@@ -122,10 +125,7 @@ class _NormalGamePageState extends State<NormalGamePage> {
                     : (state is GameStateFinished)
                         ? Strings.gameMessageStart1
                         : null,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),
+            style: textTheme.bodyText1,
           ),
           WidgetSpan(
             child: Padding(
@@ -145,10 +145,7 @@ class _NormalGamePageState extends State<NormalGamePage> {
                 : (state is GameStateFinished)
                     ? Strings.gameMessageFinished2
                     : null,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),
+            style: textTheme.bodyText1
           ),
         ],
       ),
@@ -163,7 +160,7 @@ class _NormalGamePageState extends State<NormalGamePage> {
           (score.truncateToDouble() == score)
               ? score.toStringAsFixed(0)
               : score.toString(),
-          style: const TextStyle(color: Colors.white, fontSize: 18),
+          style: textTheme.bodyText1,
         )
       ],
     );

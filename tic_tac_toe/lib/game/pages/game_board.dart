@@ -12,10 +12,12 @@ class GameBoard extends StatefulWidget {
 
 class _GameBoardState extends State<GameBoard> {
   late GameBloc _bloc;
+  late ThemeData theme;
 
   @override
   Widget build(BuildContext context) {
     _bloc = BlocProvider.of<GameBloc>(context);
+    theme = Theme.of(context);
 
     return BlocConsumer(
       bloc: _bloc,
@@ -99,8 +101,8 @@ class _GameBoardState extends State<GameBoard> {
   }
 
   BorderSide _squareBorderSide() {
-    return const BorderSide(
-      color: CustomColors.gold,
+    return BorderSide(
+      color: theme.primaryColor,
       width: 1,
     );
   }

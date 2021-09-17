@@ -20,7 +20,7 @@ class StartPage extends StatelessWidget {
           children: [
             Text(
               Strings.titlePlay,
-              style: textTheme.headline5!.copyWith(color: Colors.white),
+              style: textTheme.headline1,
             ),
             const SizedBox(
               height: 16,

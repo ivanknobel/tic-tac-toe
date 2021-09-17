@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tic_tac_toe/theme/colors.dart';
 
 class MainButton extends StatelessWidget {
   final String text;
@@ -10,34 +9,36 @@ class MainButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return ElevatedButton(
       onPressed: action,
       child: Text(
         text,
-        style: const TextStyle(fontSize: 18),
+        style: theme.textTheme.bodyText1,
       ),
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.resolveWith(
           (states) {
             if (states.contains(MaterialState.pressed)) {
-              return Colors.black;
+              return theme.textSelectionTheme.selectionColor;
             }
-            return Colors.white;
+            return theme.textTheme.bodyText1?.color ?? Colors.grey;
           },
         ),
         backgroundColor: MaterialStateProperty.resolveWith(
           (states) {
             if (states.contains(MaterialState.pressed)) {
-              return CustomColors.gold;
+              return theme.primaryColor;
             }
-            return Colors.black;
+            return theme.backgroundColor;
           },
         ),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
-            side: const BorderSide(
-              color: CustomColors.gold,
+            side: BorderSide(
+              color: theme.primaryColor,
             ),
           ),
         ),
