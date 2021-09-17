@@ -13,11 +13,23 @@ class StartPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.appName),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const SettingsPage()));
+            },
+            icon: const Icon(Icons.settings),
+          )
+        ],
       ),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(
+              height: 16,
+            ),
             Text(
               Strings.titlePlay,
               style: textTheme.headline1,
@@ -28,8 +40,8 @@ class StartPage extends StatelessWidget {
             MainButton(
               text: Strings.buttonTwoPlayers,
               action: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const NormalGamePage()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const NormalGamePage()));
               },
             )
           ],

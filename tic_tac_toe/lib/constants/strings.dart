@@ -6,6 +6,9 @@ class Strings {
   static const titlePlay = "Jogar";
   static const buttonTwoPlayers = "2 Jogadores";
 
+  //Settings page
+  static const titleSettings = "Configurações";
+
   //Game page
   static const buttonNewGame = "Novo jogo";
   static const gameMessageStart1 = "Jogador";

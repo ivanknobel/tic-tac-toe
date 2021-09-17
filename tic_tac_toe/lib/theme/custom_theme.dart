@@ -38,7 +38,7 @@ class CustomTheme {
 
   static ThemeData get darkThemePink {
     return ThemeData(
-      primaryColor: Colors.pink,
+      primaryColor: CustomColors.pink,
       textSelectionTheme: const TextSelectionThemeData(
         selectionColor: Colors.black,
       ),

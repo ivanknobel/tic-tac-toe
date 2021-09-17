@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       title: Strings.appName,
       theme: CustomTheme.darkThemeGold,
       home: const StartPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
