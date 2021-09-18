@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'colors.dart';
 
 class CustomTheme {
-  static ThemeData get darkThemeGold {
+  static ThemeData get darkTheme {
     return ThemeData(
-      primaryColor: CustomColors.gold,
+      primaryColor: Colors.white,
       textSelectionTheme: const TextSelectionThemeData(
         selectionColor: Colors.black,
       ),
@@ -36,32 +35,15 @@ class CustomTheme {
     );
   }
 
+  static ThemeData get darkThemeGold {
+    return darkTheme.copyWith(
+      primaryColor: CustomColors.gold,
+    );
+  }
+
   static ThemeData get darkThemePink {
-    return ThemeData(
+    return darkTheme.copyWith(
       primaryColor: CustomColors.pink,
-      textSelectionTheme: const TextSelectionThemeData(
-        selectionColor: Colors.black,
-      ),
-      backgroundColor: Colors.black,
-      scaffoldBackgroundColor: Colors.black,
-      textTheme: GoogleFonts.robotoTextTheme().copyWith(
-        headline1: const TextStyle(
-          color: Colors.white,
-          fontSize: 24,
-          fontWeight: FontWeight.normal,
-        ),
-        bodyText1: const TextStyle(
-          color: Colors.white,
-          fontSize: 18,
-        ),
-      ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.black,
-        centerTitle: true,
-      ),
-      iconTheme: const IconThemeData(
-        color: Colors.white,
-      ),
     );
   }
 }
