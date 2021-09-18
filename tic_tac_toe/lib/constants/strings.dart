@@ -2,6 +2,11 @@ class Strings {
   //Main
   static const appName = "Tic Tac Toe";
 
+  //SharedPreferences keys
+  static const keySelectedTheme = "keySelectedTheme";
+  static const keyThemeDarkGold = "keyThemeDarkGold";
+  static const keyThemeDarkPink = "keyThemeDarkPink";
+
   //Start page
   static const titlePlay = "Jogar";
   static const buttonTwoPlayers = "2 Jogadores";
