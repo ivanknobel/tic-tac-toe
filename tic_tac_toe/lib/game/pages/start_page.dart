@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/constants/constants.dart';
 import 'package:tic_tac_toe/game/game.dart';
+import 'package:tic_tac_toe/settings/settings.dart';
 import 'package:tic_tac_toe/widgets/widgets.dart';
 
 class StartPage extends StatelessWidget {
