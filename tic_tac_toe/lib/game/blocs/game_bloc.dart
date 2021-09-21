@@ -9,7 +9,7 @@ class GameBloc extends Cubit<GameState> {
 
   GameBloc(this.game) : super(GameStateStart(game, whoPlays: getRandomStarter()));
 
-  final GameUseCase _useCase = locator.get<GameUseCase>();
+  final _useCase = locator.get<GameUseCase>();
 
   void play({
     required Player player,

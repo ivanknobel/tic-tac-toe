@@ -11,7 +11,7 @@ class ThemeStorageUseCase {
     if (_sharedPreferences != null) {
       themeKey = _sharedPreferences!.getString(Strings.keySelectedTheme) ?? "";
     }
-    return _themeFromString(themeKey);
+    return themeFromString(themeKey);
   }
 
   void saveTheme(String themeKey) { 
@@ -20,7 +20,7 @@ class ThemeStorageUseCase {
     }
   }
 
-  ThemeData _themeFromString(String themeKey) {
+  ThemeData themeFromString(String themeKey) {
     switch (themeKey) {
       case Strings.keyThemeDarkGold:
         return CustomTheme.darkThemeGold;

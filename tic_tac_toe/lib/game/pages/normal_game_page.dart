@@ -30,13 +30,11 @@ class _NormalGamePageState extends State<NormalGamePage> {
         child: BlocConsumer<MatchBloc, MatchState>(
           builder: (context, MatchState matchState) {
             _matchBloc = BlocProvider.of<MatchBloc>(context);
-
             return BlocProvider(
               create: (context) => GameBloc(matchState.currentGame),
               child: BlocConsumer<GameBloc, GameState>(
                 builder: (context, GameState gameState) {
                   _gameBloc = BlocProvider.of<GameBloc>(context);
-
                   return Column(
                     children: [
                       const SizedBox(
@@ -140,13 +138,12 @@ class _NormalGamePageState extends State<NormalGamePage> {
             ),
           ),
           TextSpan(
-            text: (state is GameStateStart)
-                ? Strings.gameMessageStart2
-                : (state is GameStateFinished)
-                    ? Strings.gameMessageFinished2
-                    : null,
-            style: textTheme.bodyText1
-          ),
+              text: (state is GameStateStart)
+                  ? Strings.gameMessageStart2
+                  : (state is GameStateFinished)
+                      ? Strings.gameMessageFinished2
+                      : null,
+              style: textTheme.bodyText1),
         ],
       ),
     );
