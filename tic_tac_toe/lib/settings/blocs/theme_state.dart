@@ -2,18 +2,19 @@ part of 'theme_bloc.dart';
 
 abstract class ThemeState {
   ThemeData theme;
+  Map<String, ThemeData> possibleThemes;
 
-  ThemeState(this.theme);
+  ThemeState(this.theme, this.possibleThemes);
 }
 
-class ThemeStateStart extends ThemeState {
-  ThemeStateStart(ThemeData theme) : super(theme);
+class ThemeStateLoading extends ThemeState {
+  ThemeStateLoading(ThemeData theme, Map<String, ThemeData> possibleThemes) : super(theme, possibleThemes);
 }
 
-class ThemeStateLoad extends ThemeState {
-  ThemeStateLoad(ThemeData theme) : super(theme);
+class ThemeStateNormal extends ThemeState {
+  ThemeStateNormal(ThemeData theme, Map<String, ThemeData> possibleThemes) : super(theme, possibleThemes);
 }
 
 class ThemeStateChanged extends ThemeState {
-  ThemeStateChanged(ThemeData newTheme) : super(newTheme);
+  ThemeStateChanged(ThemeData newTheme, Map<String, ThemeData> possibleThemes) : super(newTheme, possibleThemes);
 }

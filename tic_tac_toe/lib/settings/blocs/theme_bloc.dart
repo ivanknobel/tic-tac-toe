@@ -7,22 +7,25 @@ import 'package:tic_tac_toe/theme/theme.dart';
 part 'theme_state.dart';
 
 class ThemeBloc extends Cubit<ThemeState> {
-  ThemeBloc() : super(ThemeStateStart(CustomTheme.darkThemeGold)) {
-    _loadCurrentTheme();
+  ThemeBloc() : super(ThemeStateLoading(CustomTheme.darkThemeGold, {})) {
+    loadCurrentTheme();
   }
 
   final _useCase = locator.get<ThemeStorageUseCase>();
 
-  void _loadCurrentTheme() {
-    ThemeData theme = _useCase.getSelectedTheme();
-    ThemeState newState = ThemeStateLoad(theme);
-    emit(newState);
+  void loadCurrentTheme() {
+    ThemeData? theme = _useCase.getSelectedTheme();
+    if (theme == null) {
+      emit(ThemeStateLoading(CustomTheme.darkThemeGold, _useCase.possibleThemes));
+    } else {
+      emit(ThemeStateNormal(theme, _useCase.possibleThemes));
+    }
   }
 
   void changeTheme(String newThemeKey) {
     _useCase.saveTheme(newThemeKey);
     ThemeData newTheme = _useCase.themeFromString(newThemeKey);
-    ThemeState newState = ThemeStateChanged(newTheme);
+    ThemeState newState = ThemeStateChanged(newTheme, _useCase.possibleThemes);
     emit(newState);
   }
 }

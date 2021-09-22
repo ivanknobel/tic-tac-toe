@@ -22,14 +22,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  _loadApp() async {
+  late ThemeBloc _themeBloc;
+
+  Future<void> _loadSharedPreferences() async {
     MyApp.mainSharedPreferences = await SharedPreferences.getInstance();
   }
 
   @override
   void initState() {
     super.initState();
-    _loadApp();
+    _loadSharedPreferences().whenComplete(() => _themeBloc.loadCurrentTheme());
   }
 
   @override
@@ -38,10 +40,17 @@ class _MyAppState extends State<MyApp> {
       create: (context) => ThemeBloc(),
       child: BlocConsumer<ThemeBloc, ThemeState>(
         builder: (context, state) {
+          _themeBloc = BlocProvider.of<ThemeBloc>(context);
           return MaterialApp(
             title: Strings.appName,
             theme: state.theme,
-            home: const StartPage(),
+            home: (state is ThemeStateLoading)
+                ? Center(
+                    child: CircularProgressIndicator(
+                      color: state.theme.primaryColor,
+                    ),
+                  )
+                : const StartPage(),
             debugShowCheckedModeBanner: false,
           );
         },
