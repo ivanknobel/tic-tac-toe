@@ -4,64 +4,61 @@ import 'package:tic_tac_toe/constants/constants.dart';
 import 'package:tic_tac_toe/widgets/widgets.dart';
 import 'package:tic_tac_toe/game/game.dart';
 
-import 'game_tab.dart';
-
-class NormalGamePage extends StatefulWidget {
-  const NormalGamePage({Key? key}) : super(key: key);
-
-  @override
-  _NormalGamePageState createState() => _NormalGamePageState();
-}
-
-class _NormalGamePageState extends State<NormalGamePage> {
+class GameTab extends StatelessWidget {
   late MatchBloc _matchBloc;
   late GameBloc _gameBloc;
-  late TextTheme textTheme;
+  late TextTheme _textTheme;
+  final GameState gameState;
+
+  GameTab(this.gameState, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    textTheme = Theme.of(context).textTheme;
+    _textTheme = Theme.of(context).textTheme;
+    _matchBloc = BlocProvider.of<MatchBloc>(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(Strings.appName),
-      ),
-      body: BlocProvider(
-        create: (context) => MatchBloc(),
-        child: BlocConsumer<MatchBloc, MatchState>(
-          builder: (context, MatchState matchState) {
-            _matchBloc = BlocProvider.of<MatchBloc>(context);
-            if (matchState is MatchStateSettings) {
-              return Container();
-            }
-            return BlocProvider(
-              create: (context) => GameBloc(matchState.currentGame),
-              child: BlocConsumer<GameBloc, GameState>(
-                builder: (context, GameState gameState) {
-                  _gameBloc = BlocProvider.of<GameBloc>(context);
-                  return GameTab(gameState);
-                },
-                listener: (context, GameState gameState) {
-                  if (gameState is GameStateFinished) {
-                    _matchBloc.gameFinished(
-                      (gameState.result == GameStatus.xWon)
-                          ? Player.x
-                          : (gameState.result == GameStatus.oWon)
-                              ? Player.o
-                              : null,
-                    );
-                  }
-                },
-              ),
-            );
-          },
-          listener: (context, MatchState state) {
-            if (state is MatchStateNewGame) {
-              _gameBloc.newGame(state.currentGame);
-            }
-          },
+    return Column(
+      children: [
+        const SizedBox(
+          height: 16,
         ),
-      ),
+        _topMessage(gameState),
+        const SizedBox(
+          height: 32,
+        ),
+        const Padding(
+          padding: EdgeInsets.all(16),
+          child: GameBoard(),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 64),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _playerScore(Player.x, _matchBloc.state.xPoints),
+              Expanded(
+                child: Container(),
+              ),
+              _playerScore(Player.o, _matchBloc.state.oPoints),
+            ],
+          ),
+        ),
+        if (gameState is GameStateFinished) ...[
+          const SizedBox(
+            height: 16,
+          ),
+          MainButton(
+            text: Strings.buttonNewGame,
+            action: () {
+              _matchBloc.newGame();
+            },
+          )
+        ],
+      ],
     );
   }
 
@@ -70,7 +67,7 @@ class _NormalGamePageState extends State<NormalGamePage> {
       if (state.result == GameStatus.drawn) {
         return Text(
           Strings.gameMessageDraw,
-          style: textTheme.bodyText1,
+          style: _textTheme.bodyText1,
         );
       }
     }
@@ -85,7 +82,7 @@ class _NormalGamePageState extends State<NormalGamePage> {
                     : (state is GameStateFinished)
                         ? Strings.gameMessageStart1
                         : null,
-            style: textTheme.bodyText1,
+            style: _textTheme.bodyText1,
           ),
           WidgetSpan(
             child: Padding(
@@ -105,7 +102,7 @@ class _NormalGamePageState extends State<NormalGamePage> {
                   : (state is GameStateFinished)
                       ? Strings.gameMessageFinished2
                       : null,
-              style: textTheme.bodyText1),
+              style: _textTheme.bodyText1),
         ],
       ),
     );
@@ -119,7 +116,7 @@ class _NormalGamePageState extends State<NormalGamePage> {
           (score.truncateToDouble() == score)
               ? score.toStringAsFixed(0)
               : score.toString(),
-          style: textTheme.bodyText1,
+          style: _textTheme.bodyText1,
         )
       ],
     );

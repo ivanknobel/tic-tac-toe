@@ -10,6 +10,10 @@ abstract class MatchState {
   double get oPoints => match.points[Player.o] ?? 0;
 }
 
+class MatchStateSettings extends MatchState {
+  MatchStateSettings(MatchModel match) : super(match);
+}
+
 class MatchStateOngoing extends MatchState {
   MatchStateOngoing(MatchModel match) : super(match);
 }
