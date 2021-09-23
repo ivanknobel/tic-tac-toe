@@ -15,6 +15,10 @@ class Strings {
   static const titleSettings = "Configurações";
 
   //Game page
+  //Game settings tab
+  static const buttonPlay = "Jogar";
+  static const sizeSelectorLabel = "Tamanho";
+  //Game tab
   static const buttonNewGame = "Novo jogo";
   static const gameMessageStart1 = "Jogador";
   static const gameMessageStart2 = "começa";

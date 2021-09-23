@@ -4,7 +4,7 @@ import 'package:tic_tac_toe/game/game.dart';
 part 'match_state.dart';
 
 class MatchBloc extends Cubit<MatchState> {
-  MatchBloc() : super(MatchStateOngoing(MatchModel()));
+  MatchBloc() : super(MatchStateSettings(MatchModel()));
 
   void gameFinished(Player? whoWon) {
     MatchState newState = MatchStateGameFinished(state.match);
@@ -20,8 +20,14 @@ class MatchBloc extends Cubit<MatchState> {
   }
 
   void newGame() {
-    MatchStateNewGame newState = MatchStateNewGame(state.match);
+    MatchState newState = MatchStateNewGame(state.match);
     newState.match.games.add(GameModel(size: state.match.boardSize));
+    emit(newState);
+  }
+
+  void start({int size = 3}) {
+    MatchModel match = MatchModel(boardSize: size);
+    MatchState newState = MatchStateOngoing(match);
     emit(newState);
   }
 }
