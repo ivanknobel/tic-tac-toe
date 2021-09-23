@@ -24,44 +24,46 @@ class _SettingsPageState extends State<SettingsPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 16),
-            Expanded(
-              child: Row(
-                children: [
-                  Text(
-                    "Tema",
-                    style: _currentTheme.textTheme.bodyText1,
-                  ),
-                  BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
-                    _themeBloc = BlocProvider.of<ThemeBloc>(context);
-                    return Expanded(
-                      child: ListView.builder(
-                        itemCount: state.possibleThemes.length,
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          MapEntry<String, ThemeData> option =
-                              state.possibleThemes.entries.elementAt(index);
-                          return themeCircle(option.value, () {
-                            _themeBloc.changeTheme(option.key);
-                          });
-                        },
-                      ),
-                    );
-                  }),
-                ],
-              ),
-            ),
+            Expanded(child: _themeSelectorRow(context)),
           ],
         ),
       ),
     );
   }
 
-  Widget themeCircle(ThemeData theme, VoidCallback onPressed) {
+  Widget _themeSelectorRow(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          "Tema",
+          style: _currentTheme.textTheme.bodyText1,
+        ),
+        Expanded(
+          child: Container(),
+        ),
+        BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
+          _themeBloc = BlocProvider.of<ThemeBloc>(context);
+          return ListView.builder(
+            itemCount: state.possibleThemes.length,
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              MapEntry<String, ThemeData> option =
+                  state.possibleThemes.entries.elementAt(index);
+              return _themeCircle(option.value, () {
+                _themeBloc.changeTheme(option.key);
+              });
+            },
+          );
+        }),
+      ],
+    );
+  }
+
+  Widget _themeCircle(ThemeData theme, VoidCallback onPressed) {
     return RawMaterialButton(
       onPressed: onPressed,
       fillColor: theme.backgroundColor,
@@ -73,7 +75,8 @@ class _SettingsPageState extends State<SettingsPage> {
       constraints: const BoxConstraints.tightFor(height: 32, width: 32),
       shape: CircleBorder(
         side: BorderSide(
-          color: _currentTheme.primaryColor,
+          color: _currentTheme.textTheme.bodyText1?.color ??
+              _currentTheme.primaryColor,
         ),
       ),
     );
