@@ -13,6 +13,7 @@ class Strings {
 
   //Settings page
   static const titleSettings = "Configurações";
+  static const themeSelectorLabel = "Tema";
 
   //Game page
   //Game settings tab

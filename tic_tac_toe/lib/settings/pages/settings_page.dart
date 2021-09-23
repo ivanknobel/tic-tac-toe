@@ -38,7 +38,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Row(
       children: [
         Text(
-          "Tema",
+          Strings.themeSelectorLabel,
           style: _currentTheme.textTheme.bodyText1,
         ),
         Expanded(
