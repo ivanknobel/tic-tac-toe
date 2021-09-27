@@ -18,7 +18,9 @@ class Strings {
   //Game page
   //Game settings tab
   static const buttonPlay = "Jogar";
-  static const sizeSelectorLabel = "Tamanho";
+  static const labelSizeSelector = "Tamanho";
+  static const labelWhoStarts = "Quem começa";
+  static const randomPlayer = "Aleatório";
   //Game tab
   static const buttonNewGame = "Novo jogo";
   static const gameMessageStart1 = "Jogador";

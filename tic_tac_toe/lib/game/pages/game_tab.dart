@@ -4,9 +4,9 @@ import 'package:tic_tac_toe/constants/constants.dart';
 import 'package:tic_tac_toe/widgets/widgets.dart';
 import 'package:tic_tac_toe/game/game.dart';
 
+// ignore: must_be_immutable
 class GameTab extends StatelessWidget {
   late MatchBloc _matchBloc;
-  late GameBloc _gameBloc;
   late TextTheme _textTheme;
   final GameState gameState;
 
@@ -87,7 +87,7 @@ class GameTab extends StatelessWidget {
           WidgetSpan(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: _getPlayerIcon((state is GameStateStart)
+              child: PlayerIcon((state is GameStateStart)
                   ? state.whoPlays
                   : (state is GameStateOngoing)
                       ? state.whoPlays
@@ -111,7 +111,7 @@ class GameTab extends StatelessWidget {
   Widget _playerScore(Player player, double score) {
     return Column(
       children: [
-        _getPlayerIcon(player, size: 24),
+        PlayerIcon(player, size: 24),
         Text(
           (score.truncateToDouble() == score)
               ? score.toStringAsFixed(0)
@@ -119,17 +119,6 @@ class GameTab extends StatelessWidget {
           style: _textTheme.bodyText1,
         )
       ],
-    );
-  }
-
-  Icon _getPlayerIcon(Player? player, {double size = 18}) {
-    return Icon(
-      (player == Player.x)
-          ? Icons.close
-          : (player == Player.o)
-              ? Icons.circle_outlined
-              : null,
-      size: size,
     );
   }
 }

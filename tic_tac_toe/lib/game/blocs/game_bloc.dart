@@ -7,7 +7,7 @@ part 'game_state.dart';
 class GameBloc extends Cubit<GameState> {
   final GameModel game;
 
-  GameBloc(this.game) : super(GameStateStart(game, whoPlays: getRandomStarter()));
+  GameBloc(this.game) : super(GameStateStart(game, whoPlays: game.starter ?? getRandomStarter()));
 
   final _useCase = locator.get<GameUseCase>();
 

@@ -25,8 +25,8 @@ class MatchBloc extends Cubit<MatchState> {
     emit(newState);
   }
 
-  void start({int size = 3}) {
-    MatchModel match = MatchModel(boardSize: size);
+  void start({int size = 3, Player? starter}) {
+    MatchModel match = MatchModel(boardSize: size, starter: starter);
     MatchState newState = MatchStateOngoing(match);
     emit(newState);
   }
