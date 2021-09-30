@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tic_tac_toe/game/game.dart';
+import 'package:tic_tac_toe/theme/theme.dart';
 
 // ignore: must_be_immutable
 class GameBoard extends StatelessWidget {
@@ -42,6 +43,7 @@ class GameBoard extends StatelessWidget {
               x: x,
               y: y,
               gameSize: size,
+              playerColors: state.game.colors,
             );
           },
         );
@@ -56,6 +58,7 @@ class GameBoard extends StatelessWidget {
     required int x,
     required int y,
     required int gameSize,
+    required Map<Player, Color> playerColors,
   }) {
     return GestureDetector(
       onTap: (data == SquareOption.empty && whoPlays != null)
@@ -66,19 +69,22 @@ class GameBoard extends StatelessWidget {
       child: GridTile(
         child: Container(
           decoration: BoxDecoration(border: _getSquareBorder(x, y, gameSize)),
-          child: Center(child: _getIcon(data)),
+          child: Center(
+              child:
+                  _getIcon(data, playerColors[playerFromSquareOption(data)])),
         ),
       ),
     );
   }
 
-  Icon _getIcon(SquareOption data) {
+  Icon _getIcon(SquareOption data, Color? color) {
     return Icon(
       (data == SquareOption.x)
           ? Icons.close
           : (data == SquareOption.o)
               ? Icons.circle_outlined
               : null,
+      color: color,
     );
   }
 

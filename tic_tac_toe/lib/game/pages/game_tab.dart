@@ -39,11 +39,11 @@ class GameTab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _playerScore(Player.x, _matchBloc.state.xPoints),
+              _playerScore(Player.x, _matchBloc.state.xPoints, _matchBloc.state.match.colors[Player.x]),
               Expanded(
                 child: Container(),
               ),
-              _playerScore(Player.o, _matchBloc.state.oPoints),
+              _playerScore(Player.o, _matchBloc.state.oPoints, _matchBloc.state.match.colors[Player.o]),
             ],
           ),
         ),
@@ -108,15 +108,15 @@ class GameTab extends StatelessWidget {
     );
   }
 
-  Widget _playerScore(Player player, double score) {
+  Widget _playerScore(Player player, double score, Color? color) {
     return Column(
       children: [
-        PlayerIcon(player, size: 24),
+        PlayerIcon(player, size: 24, color: color),
         Text(
           (score.truncateToDouble() == score)
               ? score.toStringAsFixed(0)
               : score.toString(),
-          style: _textTheme.bodyText1,
+          style: _textTheme.bodyText1?.copyWith(color: color),
         )
       ],
     );

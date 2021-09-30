@@ -30,6 +30,16 @@ SquareOption squareOptionFromPlayer(Player player) {
   return SquareOption.o;
 }
 
+Player? playerFromSquareOption(SquareOption squareOption) {
+  if (squareOption == SquareOption.x) {
+    return Player.x;
+  }
+  if (squareOption == SquareOption.o) {
+    return Player.o;
+  }
+  return null;
+}
+
 enum GameStatus {
   start,
   ongoing,

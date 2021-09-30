@@ -1,10 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tic_tac_toe/game/game.dart';
 
 part 'match_state.dart';
 
 class MatchBloc extends Cubit<MatchState> {
-  MatchBloc() : super(MatchStateSettings(MatchModel()));
+  MatchBloc() : super(MatchStateSettings(MatchModel(colors: GameConstants.defaultColors)));
 
   void gameFinished(Player? whoWon) {
     MatchState newState = MatchStateGameFinished(state.match);
@@ -20,13 +22,14 @@ class MatchBloc extends Cubit<MatchState> {
   }
 
   void newGame() {
-    MatchState newState = MatchStateNewGame(state.match);
-    newState.match.games.add(GameModel(size: state.match.boardSize));
+    MatchModel match = state.match;
+    MatchState newState = MatchStateNewGame(match);
+    newState.match.games.add(GameModel(size: match.boardSize, colors: match.colors));
     emit(newState);
   }
 
-  void start({int size = 3, Player? starter}) {
-    MatchModel match = MatchModel(boardSize: size, starter: starter);
+  void start({int size = 3, Player? starter, required Map<Player, Color> colors}) {
+    MatchModel match = MatchModel(boardSize: size, starter: starter, colors:colors);
     MatchState newState = MatchStateOngoing(match);
     emit(newState);
   }

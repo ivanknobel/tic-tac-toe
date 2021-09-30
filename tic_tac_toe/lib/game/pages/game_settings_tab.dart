@@ -31,7 +31,7 @@ class _GameSettingsTabState extends State<GameSettingsTab> {
           MainButton(
             text: Strings.buttonPlay,
             action: () {
-              _matchBloc.start(size: gameSize, starter: starter);
+              _matchBloc.start(size: gameSize, starter: starter, colors: GameConstants.defaultColors);
             },
           )
         ],
