@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tic_tac_toe/game/game.dart';
 
-class GameBoard extends StatefulWidget {
-  const GameBoard({Key? key}) : super(key: key);
-
-  @override
-  _GameBoardState createState() => _GameBoardState();
-}
-
-class _GameBoardState extends State<GameBoard> {
+// ignore: must_be_immutable
+class GameBoard extends StatelessWidget {
   late GameBloc _bloc;
   late ThemeData theme;
+
+  GameBoard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,35 +19,31 @@ class _GameBoardState extends State<GameBoard> {
       builder: (context, GameState state) {
         int size = state.game.size;
 
-        return Stack(
-          children: [
-            GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: size,
-              ),
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              itemCount: size * size,
-              itemBuilder: (context, index) {
-                int length = size;
-                int x, y = 0;
-                x = (index / length).floor();
-                y = (index % length);
+        return GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: size,
+          ),
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          itemCount: size * size,
+          itemBuilder: (context, index) {
+            int length = size;
+            int x, y = 0;
+            x = (index / length).floor();
+            y = (index % length);
 
-                return _gameSquare(
-                  data: state.game.board[x][y],
-                  whoPlays: (state is GameStateStart)
+            return _gameSquare(
+              data: state.game.board[x][y],
+              whoPlays: (state is GameStateStart)
+                  ? state.whoPlays
+                  : (state is GameStateOngoing)
                       ? state.whoPlays
-                      : (state is GameStateOngoing)
-                          ? state.whoPlays
-                          : null,
-                  x: x,
-                  y: y,
-                  gameSize: size,
-                );
-              },
-            )
-          ],
+                      : null,
+              x: x,
+              y: y,
+              gameSize: size,
+            );
+          },
         );
       },
       listener: (context, state) {},

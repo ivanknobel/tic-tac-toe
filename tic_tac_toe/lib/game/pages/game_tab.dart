@@ -26,8 +26,8 @@ class GameTab extends StatelessWidget {
         const SizedBox(
           height: 32,
         ),
-        const Padding(
-          padding: EdgeInsets.all(16),
+        Padding(
+          padding: const EdgeInsets.all(16),
           child: GameBoard(),
         ),
         const SizedBox(
